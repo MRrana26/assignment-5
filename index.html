@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Github Issue Tracker</title>
+
+    <!-- fav icon added -->
+    <link rel="shortcut icon" href="assets/github-logo.png" type="image/x-icon">
+
+    <!-- daisyui and tailwind added -->
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+    <!-- font awesome added  -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+        integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <!-- google font added  -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap" rel="stylesheet">
+
+    <!-- style added -->
+    <style>
+        * {
+            font-family: "Geist", sans-serif;
+        }
+    </style>
+
+</head>
+
+<body class="bg-slate-100">
+    <section class="min-h-screen max-w-md bg-white mx-auto shadow-md rounded-lg px-5">
+        <div class="flex justify-center items-center text-center pt-10">
+            <div class="space-y-2">
+                <div class="flex items-center justify-center">
+                    <img src="assets/github-logo.png" alt="">
+                </div>
+                <h2 class="text-2xl font-semibold">GitHub Issues Tracker</h2>
+                <p class="text-[1rem] text-[#64748B]">Sign in to manage your issues</p>
+            </div>
+        </div>
+
+        <div>
+            <fieldset class="fieldset p-4 space-y-2">
+            <label class="label font-semibold text-[#1F2937]">Username</label>
+            <input type="email" class="input w-full" placeholder="Enter Username" />
+
+            <label class="label font-semibold text-[#1F2937]">Password</label>
+            <input type="password" class="input w-full" placeholder="Enter Password" />
+
+            <button class="btn btn-primary mt-4">Sign In</button>
+        </fieldset>
+        </div>
+
+        <div class="grid grid-cols-13 items-center gap-1 p-4">
+            <div class="col-span-6 opacity-30"><hr></div>
+            <div class="col-span-1">OR</div>
+            <div class="col-span-6 opacity-30"><hr></div>
+        </div>
+
+        <div class="text-center">
+            <h3 class="text-[0.8rem] text-[#64748B]">Demo Credentials:</h3>
+            <div class="bg-[#F8FAFC] p-2 rounded-md">
+                <p class="font-semibold text-[#1F2937]">Username: <span class="font-normal text-[14px]">admin</span></p>
+                <p>Password: <span class="font-normal text-[14px]">admin123</span></p>
+            </div>
+        </div>
+
+    </section>
+
+
+    <script src="script.js"></script>
+</body>
+
+</html>

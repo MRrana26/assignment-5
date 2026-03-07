@@ -8,14 +8,14 @@ async function loadAllData() {
 
     mainContainer.innerHTML = '';
     data.data.forEach(element => {
-        
+
         const div = document.createElement('div');
 
         let imageStatus = "";
-        if(element.status === 'open'){
+        if (element.status === 'open') {
             div.classList = 'card border-t-4 border-t-[#00A96E] bg-white p-4 space-y-4';
             imageStatus = "assets/Open-Status.png";
-        }else {
+        } else {
             div.classList = 'card border-t-4 border-t-[#A855F7] bg-white p-4 space-y-4';
             imageStatus = "assets/Closed-Status.png";
         }
@@ -35,19 +35,20 @@ async function loadAllData() {
                         <p class="text-[0.6rem] text-[#EF4444]">
                             <i class="fa-solid fa-bug"></i> ${element.labels[0].toUpperCase()}</p>
                     </div>
-                    <div class="border border-[#FDE68A] rounded-full px-2 py-1">
-                        <p class="text-[0.6rem] text-[#D97706]">
-                            <i class="fa-solid fa-life-ring"></i> ${element.labels[1]}</p>
-                    </div>
+
+                   ${element.labels[1] ? ` <div class="border border-[#FDE68A] rounded-full px-2 py-1">
+                    <p class="text-[0.6rem] text-[#D97706]">
+                    <i class="fa-solid fa-life-ring"></i> ${element.labels[1]} </p> </div>` : ""}
+
                 </div>
                 <div class="opacity-30"><hr></div>
                 <div class="">
                     <p><small class="text-[#64748B]">${element.assignee}</small></p>
                     <p><small class="text-[#64748B]">${element.createdAt}</small></p>
-                </div>
-        `;
+                </div> 
+                `;
 
-        mainContainer.appendChild(div);   
+        mainContainer.appendChild(div);
     });
 
 }

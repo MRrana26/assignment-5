@@ -6,6 +6,7 @@ const close = document.getElementById('close');
 const userTextUserInput = document.getElementById('userTextUserInput');
 const myModal = document.getElementById('myModal');
 
+
 function openModal(id) {
     async function loadModalData() {
         const res = await fetch(`https://phi-lab-server.vercel.app/api/v1/lab/issue/${id}`);
@@ -14,43 +15,37 @@ function openModal(id) {
         const statusModal = document.getElementById('statusModal');
         const authorModal = document.getElementById('authorModal');
         const createdAtModal = document.getElementById('createdAtModal');
-
         const date = data.data.createdAt;
         const dateFormat = new Date(date);
         const dateFormatModal = dateFormat.toLocaleDateString('en-GB');
-
         const labelsModal = document.getElementById('labelsModal');
         const labelsModal2 = document.getElementById('labelsModal2');
-        const labelsModal2icon = document.getElementById('labelsModal2icon');
-        const labelsModal2div = document.getElementById('labelsModal2div');
+        const labelsModal2Div = document.getElementById('labelsModal2Div');
         const descriptionModal = document.getElementById('descriptionModal');
         const assigneeModal = document.getElementById('assigneeModal');
         const priorityModal = document.getElementById('priorityModal');
-
-        if(data.data.labels[1].length > 0){
-            labelsModal2.innerText = data.data.labels[1].toUpperCase();
-        }else{
-            labelsModal2.innerText = '';
-            labelsModal2icon.innerText = '';
-            labelsModal2div.classList = '';
-        }
 
         titleModal.innerText = data.data.title;
         statusModal.innerText = data.data.status.toUpperCase();
         authorModal.innerText = data.data.status + ' by ' + data.data.author;
         createdAtModal.innerText = dateFormatModal;
-        labelsModal.innerText = data.data.labels[0].toUpperCase();
-        
+        labelsModal.innerText = data.data.labels[0] ? data.data.labels[0].toUpperCase() : '';
+        labelsModal2.innerText = data.data.labels[1] ? data.data.labels[1].toUpperCase() : '';
         descriptionModal.innerText = data.data.description;
-        assigneeModal.innerText = data.data.assigneeModal;
         priorityModal.innerText = data.data.priority.toUpperCase();
-        console.log(data.data.title)
+        labelsModal2Div.classList = data.data.labels[1] ? "border border-[#FDE68A] rounded-full px-2 py-1" : "hidden";
+        
+        if(data.data.assignee){
+            assigneeModal.innerText = data.data.assignee;
+        }else{
+           assigneeModal.innerText = '';
+        }
     }
     myModal.showModal();
     loadModalData();
 }
 
-{/* <button class="btn" onclick="my_modal_1.showModal()">open modal</button>  */ }
+// {/* <button class="btn" onclick="my_modal_1.showModal()">open modal</button>  */ }
 
 // Search function Responsive
 document.getElementById('searchBtn')
@@ -62,11 +57,11 @@ document.getElementById('searchBtn')
             console.log(searchText);
             const searchData = data.data.filter(data => data.title.toLowerCase().includes(searchText.toLowerCase().trim()));
 
-            issuesCount.innerText = searchData.length
+            issuesCount.innerText = searchData.length;
+            
 
             mainContainer.innerHTML = '';
             searchData.forEach(element => {
-
                 const div = document.createElement('div');
                 div.onclick = () => {
                     openModal(element.id)
@@ -80,6 +75,8 @@ document.getElementById('searchBtn')
                     div.classList = 'card border-t-4 border-t-[#A855F7] bg-white p-4 space-y-4';
                     imageStatus = "assets/Closed-Status.png";
                 }
+                
+                
 
                 const date = element.createdAt;
                 const dateFormat = new Date(date);
@@ -275,7 +272,7 @@ async function loadAllData() {
     const res = await fetch('https://phi-lab-server.vercel.app/api/v1/lab/issues');
     const data = await res.json();
     issuesCount.innerText = data.data.length
-
+    
     mainContainer.innerHTML = '';
     data.data.forEach(element => {
 
@@ -292,6 +289,9 @@ async function loadAllData() {
             div.classList = 'card border-t-4 border-t-[#A855F7] bg-white p-4 space-y-4';
             imageStatus = "assets/Closed-Status.png";
         }
+       
+
+
         const date = element.createdAt;
         const dateFormat = new Date(date);
         const dateFormated = dateFormat.toLocaleDateString('en-GB');
@@ -300,7 +300,7 @@ async function loadAllData() {
         div.innerHTML = `
         <div class="flex justify-between items-center">
                     <img src="${imageStatus}" alt="">
-                    <h1  class="text-[#EF4444]">${element.priority.toUpperCase()}</h1>
+                    <h1 class="text-[#EF4444]">${element.priority.toUpperCase()}</h1>
                 </div>
                 <div class="space-y-3">
                     <h1 class="font-semibold text-[1rem]">${element.title}</h1>

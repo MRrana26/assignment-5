@@ -4,6 +4,53 @@ const all = document.getElementById('all');
 const open = document.getElementById('open');
 const close = document.getElementById('close');
 const userTextUserInput = document.getElementById('userTextUserInput');
+const myModal = document.getElementById('myModal');
+
+function openModal(id) {
+    async function loadModalData() {
+        const res = await fetch(`https://phi-lab-server.vercel.app/api/v1/lab/issue/${id}`);
+        const data = await res.json();
+        const titleModal = document.getElementById('titleModal');
+        const statusModal = document.getElementById('statusModal');
+        const authorModal = document.getElementById('authorModal');
+        const createdAtModal = document.getElementById('createdAtModal');
+
+        const date = data.data.createdAt;
+        const dateFormat = new Date(date);
+        const dateFormatModal = dateFormat.toLocaleDateString('en-GB');
+
+        const labelsModal = document.getElementById('labelsModal');
+        const labelsModal2 = document.getElementById('labelsModal2');
+        const labelsModal2icon = document.getElementById('labelsModal2icon');
+        const labelsModal2div = document.getElementById('labelsModal2div');
+        const descriptionModal = document.getElementById('descriptionModal');
+        const assigneeModal = document.getElementById('assigneeModal');
+        const priorityModal = document.getElementById('priorityModal');
+
+        if(data.data.labels[1].length > 0){
+            labelsModal2.innerText = data.data.labels[1].toUpperCase();
+        }else{
+            labelsModal2.innerText = '';
+            labelsModal2icon.innerText = '';
+            labelsModal2div.classList = '';
+        }
+
+        titleModal.innerText = data.data.title;
+        statusModal.innerText = data.data.status.toUpperCase();
+        authorModal.innerText = data.data.status + ' by ' + data.data.author;
+        createdAtModal.innerText = dateFormatModal;
+        labelsModal.innerText = data.data.labels[0].toUpperCase();
+        
+        descriptionModal.innerText = data.data.description;
+        assigneeModal.innerText = data.data.assigneeModal;
+        priorityModal.innerText = data.data.priority.toUpperCase();
+        console.log(data.data.title)
+    }
+    myModal.showModal();
+    loadModalData();
+}
+
+{/* <button class="btn" onclick="my_modal_1.showModal()">open modal</button>  */ }
 
 // Search function Responsive
 document.getElementById('searchBtn')
@@ -13,7 +60,7 @@ document.getElementById('searchBtn')
             const data = await res.json();
             const searchText = userTextUserInput.value
             console.log(searchText);
-            const searchData = data.data.filter(data => data.title.toLowerCase().includes(searchText.toLowerCase()));
+            const searchData = data.data.filter(data => data.title.toLowerCase().includes(searchText.toLowerCase().trim()));
 
             issuesCount.innerText = searchData.length
 
@@ -21,6 +68,9 @@ document.getElementById('searchBtn')
             searchData.forEach(element => {
 
                 const div = document.createElement('div');
+                div.onclick = () => {
+                    openModal(element.id)
+                };
 
                 let imageStatus = "";
                 if (element.status === 'open') {
@@ -30,7 +80,10 @@ document.getElementById('searchBtn')
                     div.classList = 'card border-t-4 border-t-[#A855F7] bg-white p-4 space-y-4';
                     imageStatus = "assets/Closed-Status.png";
                 }
-                const date = new Date(element.createdAt);
+
+                const date = element.createdAt;
+                const dateFormat = new Date(date);
+                const dateFormated = dateFormat.toLocaleDateString('en-GB');
 
 
                 div.innerHTML = `
@@ -56,13 +109,13 @@ document.getElementById('searchBtn')
                 <div class="opacity-30"><hr></div>
                 <div class="">
                     <p><small class="text-[#64748B]">${element.assignee}</small></p>
-                    <p><small class="text-[#64748B]">${date}</small></p>
+                    <p><small class="text-[#64748B]">${dateFormated}</small></p>
                 </div> 
                 `;
 
                 mainContainer.appendChild(div);
             });
-                
+
         }
         // =======================================end
         loadSearchData();
@@ -100,6 +153,9 @@ async function loadCloseData() {
     closedData.forEach(element => {
 
         const div = document.createElement('div');
+        div.onclick = () => {
+            openModal(element.id)
+        };
 
         let imageStatus = "";
         if (element.status === 'open') {
@@ -109,7 +165,9 @@ async function loadCloseData() {
             div.classList = 'card border-t-4 border-t-[#A855F7] bg-white p-4 space-y-4';
             imageStatus = "assets/Closed-Status.png";
         }
-        const date = new Date(element.createdAt);
+        const date = element.createdAt;
+        const dateFormat = new Date(date);
+        const dateFormated = dateFormat.toLocaleDateString('en-GB');
 
 
         div.innerHTML = `
@@ -135,7 +193,7 @@ async function loadCloseData() {
                 <div class="opacity-30"><hr></div>
                 <div class="">
                     <p><small class="text-[#64748B]">${element.assignee}</small></p>
-                    <p><small class="text-[#64748B]">${date}</small></p>
+                    <p><small class="text-[#64748B]">${dateFormated}</small></p>
                 </div> 
                 `;
 
@@ -160,6 +218,9 @@ async function loadOpenData() {
     openData.forEach(element => {
 
         const div = document.createElement('div');
+        div.onclick = () => {
+            openModal(element.id)
+        };
 
         let imageStatus = "";
         if (element.status === 'open') {
@@ -169,7 +230,9 @@ async function loadOpenData() {
             div.classList = 'card border-t-4 border-t-[#A855F7] bg-white p-4 space-y-4';
             imageStatus = "assets/Closed-Status.png";
         }
-        const date = new Date(element.createdAt);
+        const date = element.createdAt;
+        const dateFormat = new Date(date);
+        const dateFormated = dateFormat.toLocaleDateString('en-GB');
 
 
         div.innerHTML = `
@@ -195,7 +258,7 @@ async function loadOpenData() {
                 <div class="opacity-30"><hr></div>
                 <div class="">
                     <p><small class="text-[#64748B]">${element.assignee}</small></p>
-                    <p><small class="text-[#64748B]">${date}</small></p>
+                    <p><small class="text-[#64748B]">${dateFormated}</small></p>
                 </div> 
                 `;
 
@@ -217,6 +280,9 @@ async function loadAllData() {
     data.data.forEach(element => {
 
         const div = document.createElement('div');
+        div.onclick = () => {
+            openModal(element.id)
+        };
 
         let imageStatus = "";
         if (element.status === 'open') {
@@ -226,7 +292,9 @@ async function loadAllData() {
             div.classList = 'card border-t-4 border-t-[#A855F7] bg-white p-4 space-y-4';
             imageStatus = "assets/Closed-Status.png";
         }
-        const date = new Date(element.createdAt);
+        const date = element.createdAt;
+        const dateFormat = new Date(date);
+        const dateFormated = dateFormat.toLocaleDateString('en-GB');
 
 
         div.innerHTML = `
@@ -252,7 +320,7 @@ async function loadAllData() {
                 <div class="opacity-30"><hr></div>
                 <div class="">
                     <p><small class="text-[#64748B]">${element.assignee}</small></p>
-                    <p><small class="text-[#64748B]">${date}</small></p>
+                    <p><small class="text-[#64748B]">${dateFormated}</small></p>
                 </div> 
                 `;
 

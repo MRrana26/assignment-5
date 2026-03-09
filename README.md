@@ -1,5 +1,4 @@
-<body>
-    <div class="">
+
         <h3>1️⃣ What is the difference between var, let, and const?</h3>
         <h4>উত্তর: var vs let</h4>
         <ul>
@@ -21,9 +20,9 @@
             <li>কারন const এর (value) মান পরিবর্তন করা যায় না।</li>
             <li>আর const এর variable একই name বার বার লেখা যায় না।</li>
         </ul>
-    </div>
+    
 
-    <div>
+    
         <h3>2️⃣ What is the spread operator (...)?</h3>
         <h4>উত্তর: Spread...</h4>
         <ul>
@@ -32,9 +31,8 @@
             <li>সেটা কে 10 20 30 এভাবে  বিছিয়ে দিতে পারি</li>
             <li>এভাবে object কে ও কাজ করে।</li>
         </ul>
-    </div>
+  
 
-    <div>
         <h3>3️⃣ What is the difference between map(), filter(), and forEach()?</h3>
         <h4>উত্তর: map(), filter(), and forEach()</h4>
         <ul>
@@ -54,10 +52,10 @@
             <li>forEach() হলো আধুনিক ES6</li>
             
         </ul>
-    </div>
+   
 
 
-    <div>
+  
         <h3>4️⃣ What is an arrow function?</h3>
         <h4>উত্তর: arrow function</h4>
         <ul>
@@ -73,10 +71,10 @@
         <br>
         <li>ES6 এ arrow function ব্যবহার করা হয়।</li>
         </ul>
-    </div>
+  
     
     
-    <div>
+  
         <h3>5️⃣ What are template literals?</h3>
         <h4>উত্তর: template literals</h4>
         <ul>
@@ -87,5 +85,5 @@
             </li>
             <li>`` এটা হলো বেট্টিক (backtik) এর ভিতরে ব্যবহার করা যায় যা খুব powerfull জিনিস</li>
         </ul>
-    </div>
-</body>
+  
+

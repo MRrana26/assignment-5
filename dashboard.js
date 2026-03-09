@@ -7,10 +7,10 @@ const userTextUserInput = document.getElementById('userTextUserInput');
 const myModal = document.getElementById('myModal');
 const loadingBars = document.getElementById('loadingBars');
 
-function loadingHide(){
+function loadingHide() {
     loadingBars.classList.add('hidden')
 }
-function loadingShow(){
+function loadingShow() {
     loadingBars.classList.remove('hidden')
 }
 
@@ -42,12 +42,13 @@ function openModal(id) {
         descriptionModal.innerText = data.data.description;
         priorityModal.innerText = data.data.priority.toUpperCase();
         labelsModal2Div.classList = data.data.labels[1] ? "border border-[#FDE68A] rounded-full px-2 py-1" : "hidden";
-        
-        if(data.data.assignee){
+
+        if (data.data.assignee) {
             assigneeModal.innerText = data.data.assignee;
-        }else{
-           assigneeModal.innerText = '';
+        } else {
+            assigneeModal.innerText = '';
         }
+
     }
     myModal.showModal();
     loadModalData();
@@ -68,7 +69,7 @@ document.getElementById('searchBtn')
             const searchData = data.data.filter(data => data.title.toLowerCase().includes(searchText.toLowerCase().trim()));
 
             issuesCount.innerText = searchData.length;
-            
+
 
             mainContainer.innerHTML = '';
             searchData.forEach(element => {
@@ -85,8 +86,31 @@ document.getElementById('searchBtn')
                     div.classList = 'card border-t-4 border-t-[#A855F7] bg-white p-4 space-y-4';
                     imageStatus = "assets/Closed-Status.png";
                 }
-                
-                
+
+                let priorityBg = '';
+                let priorityTextColor = '';
+                if (element.priority === 'high') {
+                    priorityBg = 'bg-[#FEECEC]';
+                    priorityTextColor = 'text-[#EF4444]';
+                } else if (element.priority === 'medium') {
+                    priorityBg = 'bg-[#FFF6D1]';
+                    priorityTextColor = 'text-[#F59E0B]';
+                } else if (element.priority === 'low') {
+                    priorityBg = 'bg-[#EEEFF2]';
+                    priorityTextColor = 'text-[#9CA3AF]';
+                }
+
+                let labelsTextColor = '';
+                let labelsBorder = '';
+
+                if (element.labels[0] === 'enhancement') {
+                    labelsTextColor = 'text-[#00A96E]';
+                    labelsBorder = 'border-[#BBF7D0]';
+                } else {
+                    priorityTextColor = 'text-[#EF4444]';
+                    labelsBorder = 'border-[#FECACA]';
+
+                }
 
                 const date = element.createdAt;
                 const dateFormat = new Date(date);
@@ -96,15 +120,15 @@ document.getElementById('searchBtn')
                 div.innerHTML = `
         <div class="flex justify-between items-center">
                     <img src="${imageStatus}" alt="">
-                    <h1  class="text-[#EF4444]">${element.priority.toUpperCase()}</h1>
+                    <h1  class="${priorityBg} ${priorityTextColor} px-3 rounded-full">${element.priority.toUpperCase()}</h1>
                 </div>
                 <div class="space-y-3">
                     <h1 class="font-semibold text-[1rem]">${element.title}</h1>
                     <h2 class="text-[#64748B] text-[12px]">${element.description}</h2>
                 </div>
                 <div class="flex gap-3">
-                    <div class="border border-[#FECACA] rounded-full px-2 py-1">
-                        <p class="text-[0.6rem] text-[#EF4444]">
+                    <div class="border ${labelsBorder} rounded-full px-2 py-1">
+                        <p class="text-[0.6rem] ${labelsTextColor}">
                             <i class="fa-solid fa-bug"></i> ${element.labels[0].toUpperCase()}</p>
                     </div>
 
@@ -174,6 +198,32 @@ async function loadCloseData() {
             div.classList = 'card border-t-4 border-t-[#A855F7] bg-white p-4 space-y-4';
             imageStatus = "assets/Closed-Status.png";
         }
+
+        let priorityBg = '';
+        let priorityTextColor = '';
+        if (element.priority === 'high') {
+            priorityBg = 'bg-[#FEECEC]';
+            priorityTextColor = 'text-[#EF4444]';
+        } else if (element.priority === 'medium') {
+            priorityBg = 'bg-[#FFF6D1]';
+            priorityTextColor = 'text-[#F59E0B]';
+        } else if (element.priority === 'low') {
+            priorityBg = 'bg-[#EEEFF2]';
+            priorityTextColor = 'text-[#9CA3AF]';
+        }
+
+        let labelsTextColor = '';
+        let labelsBorder = '';
+
+        if (element.labels[0] === 'enhancement') {
+            labelsTextColor = 'text-[#00A96E]';
+            labelsBorder = 'border-[#BBF7D0]';
+        } else {
+            priorityTextColor = 'text-[#EF4444]';
+            labelsBorder = 'border-[#FECACA]';
+
+        }
+
         const date = element.createdAt;
         const dateFormat = new Date(date);
         const dateFormated = dateFormat.toLocaleDateString('en-GB');
@@ -182,15 +232,15 @@ async function loadCloseData() {
         div.innerHTML = `
         <div class="flex justify-between items-center">
                     <img src="${imageStatus}" alt="">
-                    <h1  class="text-[#EF4444]">${element.priority.toUpperCase()}</h1>
+                    <h1  class="${priorityBg} ${priorityTextColor} px-3 rounded-full">${element.priority.toUpperCase()}</h1>
                 </div>
                 <div class="space-y-3">
                     <h1 class="font-semibold text-[1rem]">${element.title}</h1>
                     <h2 class="text-[#64748B] text-[12px]">${element.description}</h2>
                 </div>
                 <div class="flex gap-3">
-                    <div class="border border-[#FECACA] rounded-full px-2 py-1">
-                        <p class="text-[0.6rem] text-[#EF4444]">
+                    <div class="border ${labelsBorder} rounded-full px-2 py-1">
+                        <p class="text-[0.6rem] ${labelsTextColor}">
                             <i class="fa-solid fa-bug"></i> ${element.labels[0].toUpperCase()}</p>
                     </div>
 
@@ -237,6 +287,32 @@ async function loadOpenData() {
             div.classList = 'card border-t-4 border-t-[#A855F7] bg-white p-4 space-y-4';
             imageStatus = "assets/Closed-Status.png";
         }
+
+        let priorityBg = '';
+        let priorityTextColor = '';
+        if (element.priority === 'high') {
+            priorityBg = 'bg-[#FEECEC]';
+            priorityTextColor = 'text-[#EF4444]';
+        } else if (element.priority === 'medium') {
+            priorityBg = 'bg-[#FFF6D1]';
+            priorityTextColor = 'text-[#F59E0B]';
+        } else if (element.priority === 'low') {
+            priorityBg = 'bg-[#EEEFF2]';
+            priorityTextColor = 'text-[#9CA3AF]';
+        }
+
+        let labelsTextColor = '';
+        let labelsBorder = '';
+
+        if (element.labels[0] === 'enhancement') {
+            labelsTextColor = 'text-[#00A96E]';
+            labelsBorder = 'border-[#BBF7D0]';
+        } else {
+            priorityTextColor = 'text-[#EF4444]';
+            labelsBorder = 'border-[#FECACA]';
+
+        }
+
         const date = element.createdAt;
         const dateFormat = new Date(date);
         const dateFormated = dateFormat.toLocaleDateString('en-GB');
@@ -245,15 +321,15 @@ async function loadOpenData() {
         div.innerHTML = `
         <div class="flex justify-between items-center">
                     <img src="${imageStatus}" alt="">
-                    <h1  class="text-[#EF4444]">${element.priority.toUpperCase()}</h1>
+                    <h1  class="${priorityBg} ${priorityTextColor} px-3 rounded-full">${element.priority.toUpperCase()}</h1>
                 </div>
                 <div class="space-y-3">
                     <h1 class="font-semibold text-[1rem]">${element.title}</h1>
                     <h2 class="text-[#64748B] text-[12px]">${element.description}</h2>
                 </div>
                 <div class="flex gap-3">
-                    <div class="border border-[#FECACA] rounded-full px-2 py-1">
-                        <p class="text-[0.6rem] text-[#EF4444]">
+                    <div class="border ${labelsBorder} rounded-full px-2 py-1">
+                        <p class="text-[0.6rem] ${labelsTextColor}">
                             <i class="fa-solid fa-bug"></i> ${element.labels[0].toUpperCase()}</p>
                     </div>
 
@@ -280,7 +356,7 @@ async function loadAllData() {
     const res = await fetch('https://phi-lab-server.vercel.app/api/v1/lab/issues');
     const data = await res.json();
     issuesCount.innerText = data.data.length;
-    
+
     mainContainer.innerHTML = '';
     data.data.forEach(element => {
 
@@ -297,26 +373,48 @@ async function loadAllData() {
             div.classList = 'card border-t-4 border-t-[#A855F7] bg-white p-4 space-y-4';
             imageStatus = "assets/Closed-Status.png";
         }
-       
 
+        let priorityBg = '';
+        let priorityTextColor = '';
+        if (element.priority === 'high') {
+            priorityBg = 'bg-[#FEECEC]';
+            priorityTextColor = 'text-[#EF4444]';
+        } else if (element.priority === 'medium') {
+            priorityBg = 'bg-[#FFF6D1]';
+            priorityTextColor = 'text-[#F59E0B]';
+        } else if (element.priority === 'low') {
+            priorityBg = 'bg-[#EEEFF2]';
+            priorityTextColor = 'text-[#9CA3AF]';
+        }
+
+        let labelsTextColor = '';
+        let labelsBorder = '';
+
+        if (element.labels[0] === 'enhancement') {
+            labelsTextColor = 'text-[#00A96E]';
+            labelsBorder = 'border-[#BBF7D0]';
+        } else {
+            priorityTextColor = 'text-[#EF4444]';
+            labelsBorder = 'border-[#FECACA]';
+
+        }
 
         const date = element.createdAt;
         const dateFormat = new Date(date);
         const dateFormated = dateFormat.toLocaleDateString('en-GB');
 
-
         div.innerHTML = `
         <div class="flex justify-between items-center">
                     <img src="${imageStatus}" alt="">
-                    <h1 class="text-[#EF4444]">${element.priority.toUpperCase()}</h1>
+                    <h1 class="${priorityBg} ${priorityTextColor} px-3 rounded-full">${element.priority.toUpperCase()}</h1>
                 </div>
                 <div class="space-y-3">
                     <h1 class="font-semibold text-[1rem]">${element.title}</h1>
                     <h2 class="text-[#64748B] text-[12px]">${element.description}</h2>
                 </div>
                 <div class="flex gap-3">
-                    <div class="border border-[#FECACA] rounded-full px-2 py-1">
-                        <p class="text-[0.6rem] text-[#EF4444]">
+                    <div class="border ${labelsBorder} rounded-full px-2 py-1">
+                        <p class="text-[0.6rem] ${labelsTextColor}">
                             <i class="fa-solid fa-bug"></i> ${element.labels[0].toUpperCase()}</p>
                     </div>
 
@@ -333,9 +431,9 @@ async function loadAllData() {
                 `;
 
         mainContainer.appendChild(div);
-        
+
     });
-        loadingHide();
+    loadingHide();
 }
 
 // ALL Data function by default call
